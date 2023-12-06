@@ -1,0 +1,21 @@
+stages:
+  - build
+  - deploy
+
+variables:
+  NODE_ENV: production
+
+before_script:
+  - npm install
+
+build:
+  stage: build
+  script:
+    - npm run build
+
+deploy:
+  stage: deploy
+  only:
+    - master  # Run this job only for the master branch
+  script:
+    - ssh user@your-server-address 'cd /path/to/your/app && git pull origin master && npm install && npm run build'
